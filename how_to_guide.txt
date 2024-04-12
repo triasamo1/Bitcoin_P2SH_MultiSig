@@ -1,1 +1,44 @@
+1) Make sure that Bitcoin-Core is already running in the background
 
+2) Install all the right libraries from the requirements.txt
+
+3) On your .bitcoin/bitcoin.conf have the following settings:
+
+regtest=1
+server=1
+deprecatedrpc=create_bdb
+[regtest]
+maxtxfee=0.01
+fallbackfee=0.001
+rpcuser=XXXX # your username here
+rpcpassword=YYYY # your password here
+
+4) Make sure you have a wallet created 
+
+5) Execute the locking script by providing 3 public keys. This is just an example:
+
+python locking_script.py --pub_1 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 --pub_2 02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5 --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
+
+The output of the above is similar to this:
+----------------------------------------------------------
+ ==========  Public Keys ==========
+
+User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
+
+User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
+
+User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
+
+P2SH address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
+----------------------------------------------------------
+
+6) Assuming the P2SH Address from the previous output, provide the target P2PKH address (where you want to send your fund to), 2 private keys (that will be used for unlocking the funds) and 1 public key (the remaining third) and then execute the locking_script.py in the following way:
+# User 1 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA
+# User 2 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v
+# P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
+
+python unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
+
+The output of the above is similar to this:
+----------------------------------------------------------
+----------------------------------------------------------
