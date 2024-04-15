@@ -14,8 +14,10 @@ from bitcoinutils.transactions import TxInput, Transaction, TxOutput
 @click.option('--pub_3', default=None, help='Public Key 3 (the remaining one)')
 @click.option('--source_addr', default=None, help='The P2SH address that was created by the locking script')
 @click.option('--target_addr', default=None, help='The PS2PKH address to send BTC to')
+@click.option('--rpcuser', default=None, help='The rpcuser that is maintained in your bitcoin.conf')
+@click.option('--rpcpassword', default=None, help='The rpcpassword that is maintained in your bitcoin.conf')
 
-def main(priv_1, priv_2, pub_3, source_addr, target_addr):
+def main(priv_1, priv_2, pub_3, source_addr, target_addr, rpcuser, rpcpassword):
 
     if not (priv_1 and priv_2 ):
         print("[ERROR] Please provide the two needed private keys")
@@ -49,7 +51,7 @@ def main(priv_1, priv_2, pub_3, source_addr, target_addr):
     print("\nP2SH Address: ", p2sh_address)
     print("\nP2PKH Address: ", p2pkh_address.to_string())
 
-    proxy = NodeProxy("tria", "pass123").get_proxy()
+    proxy = NodeProxy(rpcuser, rpcpassword).get_proxy()
     # count = proxy.getblockcount()
     # print(count)
 
