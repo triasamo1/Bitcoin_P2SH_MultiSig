@@ -33,14 +33,15 @@ P2SH address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
 ----------------------------------------------------------
 
 6) Send some funds to the above P2SH address with the following commands:
-bitcoin-cli
+bitcoin-cli sendtoaddress 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS 11
+bitcoin-cli -generate
 
-7) Assuming the P2SH Address from the previous output, provide the target P2PKH address (where you want to send your fund to), 2 private keys (that will be used for unlocking the funds) and 1 public key (the remaining third) and then execute the locking_script.py in the following way:
+7) Assuming the P2SH Address from the previous output, provide the target P2PKH address (where you want to send your fund to), 2 private keys (that will be used for unlocking the funds), 1 public key (the remaining third) and the rpc credentials(used in your bitcoin.conf). Then execute the locking_script.py in the following way:
 # User 1 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA
 # User 2 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v
 # P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
 
-python unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
+python unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx --rpcuser XXXX --rpcpassword YYYY
 
 The output of the above is similar to this:
 ----------------------------------------------------------
