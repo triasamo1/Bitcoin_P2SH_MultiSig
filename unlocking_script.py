@@ -132,11 +132,3 @@ def main(priv_1, priv_2, pub_3, source_addr, target_addr, rpcuser, rpcpassword):
 
 if __name__ == "__main__":
     main()
-
-# User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
-# User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
-# User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
-# P2SH Address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
-# P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
-
-# python assignment_1/unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
