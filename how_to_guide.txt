@@ -4,79 +4,79 @@
 
 3) On your .bitcoin/bitcoin.conf have the following settings:
 
-regtest=1
-server=1
-deprecatedrpc=create_bdb
-[regtest]
-maxtxfee=0.01
-fallbackfee=0.001
-rpcuser=XXXX # your username here
-rpcpassword=YYYY # your password here
+    regtest=1
+    server=1
+    deprecatedrpc=create_bdb
+    [regtest]
+    maxtxfee=0.01
+    fallbackfee=0.001
+    rpcuser=XXXX # your username here
+    rpcpassword=YYYY # your password here
 
 4) Make sure you have a wallet created 
 
 5) Execute the locking script by providing 3 public keys. This is just an example:
 
-python locking_script.py --pub_1 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 --pub_2 02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5 --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
-
-The output of the above is similar to this:
-----------------------------------------------------------
- ==========  Public Keys ==========
-
-User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
-
-User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
-
-User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
-
-P2SH address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
-----------------------------------------------------------
+    python locking_script.py --pub_1 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 --pub_2 02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5 --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
+    
+    The output of the above is similar to this:
+    ----------------------------------------------------------
+     ==========  Public Keys ==========
+    
+    User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
+    
+    User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
+    
+    User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
+    
+    P2SH address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
+    ----------------------------------------------------------
 
 6) Send some funds to the above P2SH address with the following commands:
-bitcoin-cli sendtoaddress 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS 11
-bitcoin-cli -generate
+   bitcoin-cli sendtoaddress 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS 11
+   bitcoin-cli -generate
 
 7) Assuming the P2SH Address from the previous output, provide the target P2PKH address (where you want to send your fund to), 2 private keys (that will be used for unlocking the funds), 1 public key (the remaining third) and the rpc credentials(used in your bitcoin.conf). Then execute the locking_script.py in the following way:
-# User 1 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA
-# User 2 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v
-# P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
-
-python unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx --rpcuser XXXX --rpcpassword YYYY
-
-The output of the above is similar to this:
-----------------------------------------------------------
- ==========  Public Keys ==========
-
-User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
-
-User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
-
-User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
-
-P2SH Address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
-
-P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
-
-Unspent UTXOs:
-[{'txid': 'e9ed42039493cbba8a89b59731c7d4d2c5d1f968d30249ddb04e6dfb1bbed419', 'vout': 0, 'address': '2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS', 'label': '', 'scriptPubKey': 'a91415fc0754e73eb85d1cbce08786fadb7320ecb8dc87', 'amount': Decimal('11.00000000'), 'confirmations': 2, 'spendable': False, 'solvable': False, 'parent_descs': [], 'safe': True}]
-
-Unspent Amount available (satoshis):  1100000000
-
-Transaction Size (bytes):  191
-
-Transaction fees (satoshis):  929
-
-Raw unsigned transaction:
-020000000119d4be1bfb6d4eb0dd4902d368f9d1c5d2d4c73197b5898abacb93940342ede90000000000ffffffff015fa79041000000001976a914dc91da72dbe48c68f575ce31e20b5e2b7231591488ac00000000
-
-Signed transaction:
-020000000119d4be1bfb6d4eb0dd4902d368f9d1c5d2d4c73197b5898abacb93940342ede900000000fc00473044022003fc910499b2922e411ac9d9e89acbe51db61bb64587ade1e83200a295161c5b02202fc19e9a360f3d46dc2338e6e8a7a44b89dfc6e3753627214e545b277db39fbb01473044022057551fb560e768858974c734620ecde63efc2dd97574af729d619672c63ad5bc022021147be86d970b12d6ffebfc9a32b7ce1ec2cf3eef6e32178848ffba2f29a699014c6952210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817982102c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee52102f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f953aeffffffff015fa79041000000001976a914dc91da72dbe48c68f575ce31e20b5e2b7231591488ac00000000
-
-Transaction ID :
-c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02
-[{'txid': 'c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02', 'wtxid': 'c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02', 'allowed': True, 'vsize': 337, 'fees': {'base': Decimal('0.00000929'), 'effective-feerate': Decimal('0.00002756'), 'effective-includes': ['c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02']}}]
-
-Valid Transaction!
-
-Transaction sent to the blockchain!
-----------------------------------------------------------
+   # User 1 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA
+   # User 2 (Private Key):  cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v
+   # P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
+   
+   python unlocking_script.py --priv_1 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA --priv_2 cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87K7XCyj5v --pub_3 02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9  --source_addr 2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS --target_addr n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx --rpcuser XXXX --rpcpassword YYYY
+   
+   The output of the above is similar to this:
+   ----------------------------------------------------------
+    ==========  Public Keys ==========
+   
+   User 1:  0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
+   
+   User 2:  02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5
+   
+   User 3:  02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9
+   
+   P2SH Address:  2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS
+   
+   P2PKH Address:  n1dDgKfr6gqMCBj7UGHJ3kCnJoBX9djsXx
+   
+   Unspent UTXOs:
+   [{'txid': 'e9ed42039493cbba8a89b59731c7d4d2c5d1f968d30249ddb04e6dfb1bbed419', 'vout': 0, 'address': '2MuFU6ZyBLtDNadMA6RnwJdXGWUSUaoKLeS', 'label': '', 'scriptPubKey': 'a91415fc0754e73eb85d1cbce08786fadb7320ecb8dc87', 'amount': Decimal('11.00000000'), 'confirmations': 2, 'spendable': False, 'solvable': False, 'parent_descs': [], 'safe': True}]
+   
+   Unspent Amount available (satoshis):  1100000000
+   
+   Transaction Size (bytes):  191
+   
+   Transaction fees (satoshis):  929
+   
+   Raw unsigned transaction:
+   020000000119d4be1bfb6d4eb0dd4902d368f9d1c5d2d4c73197b5898abacb93940342ede90000000000ffffffff015fa79041000000001976a914dc91da72dbe48c68f575ce31e20b5e2b7231591488ac00000000
+   
+   Signed transaction:
+   020000000119d4be1bfb6d4eb0dd4902d368f9d1c5d2d4c73197b5898abacb93940342ede900000000fc00473044022003fc910499b2922e411ac9d9e89acbe51db61bb64587ade1e83200a295161c5b02202fc19e9a360f3d46dc2338e6e8a7a44b89dfc6e3753627214e545b277db39fbb01473044022057551fb560e768858974c734620ecde63efc2dd97574af729d619672c63ad5bc022021147be86d970b12d6ffebfc9a32b7ce1ec2cf3eef6e32178848ffba2f29a699014c6952210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817982102c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee52102f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f953aeffffffff015fa79041000000001976a914dc91da72dbe48c68f575ce31e20b5e2b7231591488ac00000000
+   
+   Transaction ID :
+   c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02
+   [{'txid': 'c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02', 'wtxid': 'c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02', 'allowed': True, 'vsize': 337, 'fees': {'base': Decimal('0.00000929'), 'effective-feerate': Decimal('0.00002756'), 'effective-includes': ['c1840d8307878cd544fe4972ae05f68c8b0bc2728e5b516242172aaf02bc9d02']}}]
+   
+   Valid Transaction!
+   
+   Transaction sent to the blockchain!
+   ----------------------------------------------------------
